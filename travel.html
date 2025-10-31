@@ -1,0 +1,53 @@
+<form id="travelForm">
+  <label for="destination">Destination:</label>
+  <input type="text" id="destination" name="destination" list="destList" autocomplete="on" required>
+  <datalist id="destList">
+    <option value="Paris">
+    <option value="Tokyo">
+    <option value="New York">
+  </datalist>
+
+  <label for="departure">Departure Date:</label>
+  <input type="date" id="departure" name="departure" required>
+
+  <label for="budget">Budget (in $):</label>
+  <input type="range" id="budget" name="budget" min="100" max="5000" step="100" value="1000">
+  <span id="budgetValue">$1000</span>
+
+  <button type="submit" class="btn btn-primary">Book Now</button>
+</form>
+
+<div class="destination-card" id="paris" style="position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.2); border-radius: 10px; padding: 15px; margin-top: 20px;">
+  <h3>Paris</h3>
+  <p>City of lights, art, and culture.</p>
+</div>
+
+<style>
+  .destination-card {
+    max-width: 300px;
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#budget').on('input', function() {
+    $('#budgetValue').text('$' + $(this).val());
+  });
+
+  $('#travelForm').on('submit', function(e) {
+    e.preventDefault();
+    const dest = $('#destination').val().toLowerCase();
+    if (!dest) {
+      alert('Please select a destination.');
+      return;
+    }
+    alert(`Booking for ${dest.charAt(0).toUpperCase() + dest.slice(1)} confirmed!`);
+  });
+
+  $('#destination').on('input', function() {
+    let val = $(this).val().toLowerCase();
+    $('.destination-card').each(function() {
+      $().toggle($(this).text().toLowerCase().indexOf(val) > -1);
+    });
+  });
+</script>

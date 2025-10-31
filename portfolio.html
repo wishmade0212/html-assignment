@@ -1,0 +1,87 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">My Portfolio</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main class="container mt-4">
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Web developer passionate about building interactive sites.</p>
+  </section>
+
+  <section id="projects" class="row">
+    <div class="col-md-4">
+      <div class="card project-card mb-3" style="border-radius:10px; box-shadow:0 4px 8px rgba(0,0,0,0.2);">
+        <img src="project1.jpg" class="card-img-top" alt="Project 1" style="border-radius:10px 10px 0 0;">
+        <div class="card-body">
+          <h5 class="card-title">Project One</h5>
+          <button class="btn btn-primary view-details" data-project="1">View Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="mt-4">
+    <h2>Contact</h2>
+    <p>Email: developer@example.com</p>
+  </section>
+</main>
+
+<div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Project Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="modalContent">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="greeting" style="text-align:center; margin-top: 20px; font-size: 1.2em;"></div>
+<div id="clock" style="text-align:center; font-size: 1.5em;"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function updateClock() {
+    const now = new Date();
+    $('#clock').text(now.toLocaleTimeString());
+    const hour = now.getHours();
+    let greet = 'Hello!';
+    if (hour < 12) greet = 'Good Morning!';
+    else if (hour < 18) greet = 'Good Afternoon!';
+    else greet = 'Good Evening!';
+    $('#greeting').text(greet);
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  $('nav a').on('click', function(e) {
+    e.preventDefault();
+    const target = $(this).attr('href');
+    $('html, body').animate({
+      scrollTop: $(target).offset().top
+    }, 600);
+  });
+
+  $('.view-details').on('click', function() {
+    const projectId = $(this).data('project');
+    const details = {
+      1: 'Details about Project One: built with HTML, CSS, JS.'
+    };
+    $('#modalContent').text(details[projectId] || 'No details available.');
+    const modal = new bootstrap.Modal(document.getElementById('projectModal'));
+    modal.show();
+  });
+</script>

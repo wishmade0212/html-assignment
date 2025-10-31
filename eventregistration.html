@@ -1,0 +1,81 @@
+<form id="registrationForm">
+  <label for="fullname">Full Name:</label>
+  <input type="text" id="fullname" name="fullname" required placeholder="Your full name">
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required placeholder="Your email">
+
+  <label for="phone">Phone Number:</label>
+  <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="10-digit phone number">
+
+  <label for="event">Choose Event:</label>
+  <input list="events" id="event" name="event" placeholder="Select event" required>
+  <datalist id="events">
+    <option value="Coding Competition">
+    <option value="Robotics Workshop">
+    <option value="Tech Talk">
+  </datalist>
+
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<div class="card mt-3" style="max-width: 400px;">
+  <div class="card-body">
+    <h5 class="card-title">Event Details</h5>
+    <p class="card-text">Join us for exciting workshops and competitions!</p>
+  </div>
+</div>
+
+<style>
+  form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  label, input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+  }
+  @media (max-width: 500px) {
+    form {
+      width: 90%;
+      padding: 10px;
+    }
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#registrationForm').on('submit', function(e) {
+      e.preventDefault();
+
+      const email = $('#email').val();
+      if (!email.includes('@')) {
+        alert('Please enter a valid email.');
+        $('#email').focus();
+        return;
+      }
+
+      const name = $('#fullname').val();
+      const event = $('#event').val();
+      alert(`Please confirm your registration:\nName: ${name}\nEmail: ${email}\nEvent: ${event}`);
+    });
+
+    $('input').on('focus', function() {
+      $(this).css('border-color', '#007bff');
+    });
+    $('input').on('blur', function() {
+      $(this).css('border-color', '#aaa');
+    });
+  });
+</script>
